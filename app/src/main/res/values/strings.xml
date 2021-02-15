@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Button Clicker</string>
+    <string name="et_quoteInput">quote</string>
+    <string name="et_authorInput">author</string>
+    <string name="textViewDefault">Inspirational Quote Goes Here</string>
+
+</resources>

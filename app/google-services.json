@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "732955830308",
+    "project_id": "baby-amalg",
+    "storage_bucket": "baby-amalg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732955830308:android:9e913cc0702e2d0e73d0b1",
+        "android_client_info": {
+          "package_name": "com.example.buttonclicker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "732955830308-eoaad5nea7i34pq7e1ft55m6ng5a4jrh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtIdc-amYYgHLNHyfuaIX2eJCI2pnG-HA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "732955830308-eoaad5nea7i34pq7e1ft55m6ng5a4jrh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
