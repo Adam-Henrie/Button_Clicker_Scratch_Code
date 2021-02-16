@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,9 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
     TextView mQuoteTextView;
 
+
     private DocumentReference mDocRef = FirebaseFirestore.getInstance().document("sampleData/inspiration");
 
     private DocumentReference rDocRef = FirebaseFirestore.getInstance().document("sampleData/with_more_inspiration");
+
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+
 
     Button btn_button;
 
