@@ -84,8 +84,10 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
                 DocumentReference userInfo = FirebaseFirestore.getInstance().document("users/" + user.getDisplayName());
 
+
                 String email = user.getEmail().toString();
                 String userName =  user.getDisplayName().toString();
+
 
                 String emailKey = "email";
                 String userNameKey = "username";

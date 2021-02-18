@@ -11,8 +11,10 @@
         android:id="@+id/btn_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:onClick="saveQuote"
         android:text="click me"
+        app:layout_constraintBottom_toTopOf="@+id/btn_fetch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_author" />
@@ -24,6 +26,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/et_quoteInput"
+        app:layout_constraintBottom_toTopOf="@+id/et_author"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,6 +38,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/et_authorInput"
+        app:layout_constraintBottom_toTopOf="@+id/btn_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_quote" />
@@ -43,10 +47,11 @@
         android:id="@+id/btn_fetch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:onClick="fetchQuote"
         android:text="Fetch"
+        app:layout_constraintBottom_toTopOf="@+id/quote_display"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_button" />
 
@@ -63,13 +68,26 @@
 
 
     <ImageView
-        android:layout_width="419dp"
-        android:layout_height="143dp"
+        android:id="@+id/imageView3"
+        android:layout_width="399dp"
+        android:layout_height="83dp"
         android:src="@drawable/walmart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="411dp"
+        android:layout_height="206dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quote_display" />
+        app:layout_constraintTop_toBottomOf="@+id/quote_display"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
