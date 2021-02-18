@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.ConnectionResult;
@@ -52,7 +54,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     // Strings used to capture text input for quote section of app
     public static final String Quote_Key = "quote";
@@ -81,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     GoogleMap googleMap;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,25 +89,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView = findViewById(R.id.mapView);
 
 
-
         checkPermission();
-        if(isPermissionGranted){
-          if(  checkGooglePlayServices()){
+        if (isPermissionGranted) {
+            if (checkGooglePlayServices()) {
 
-              mapView.getMapAsync(this);
-              mapView.onCreate(savedInstanceState);
+                mapView.getMapAsync(this);
+                mapView.onCreate(savedInstanceState);
 
 
-              Toast.makeText(this, "Google Play Services available", Toast.LENGTH_SHORT).show();
-          }else {
-              Toast.makeText(this, "Google play Services Not available", Toast.LENGTH_SHORT).show();
-          }
+                Toast.makeText(this, "Google Play Services available", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Google play Services Not available", Toast.LENGTH_SHORT).show();
+            }
         }
 
         mQuoteTextView = (TextView) findViewById(R.id.quote_display);
         btn_button = findViewById(R.id.btn_button);
         EditText tv_quote = findViewById(R.id.et_quote);
-        EditText tv_author =  findViewById(R.id.et_author);
+        EditText tv_author = findViewById(R.id.et_author);
 
 
         //if user hasn't logged in before create an intent which transfers you to the LoginRegisterActivity
@@ -118,31 +117,29 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
-
-
     }
 
     private boolean checkGooglePlayServices() {
-            GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-            int result = googleApiAvailability.isGooglePlayServicesAvailable(this);
-            if(result == ConnectionResult.SUCCESS){
-                return true;
-            } else if(googleApiAvailability.isUserResolvableError(result)) {
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int result = googleApiAvailability.isGooglePlayServicesAvailable(this);
+        if (result == ConnectionResult.SUCCESS) {
+            return true;
+        } else if (googleApiAvailability.isUserResolvableError(result)) {
 
-                Dialog dialog = googleApiAvailability.getErrorDialog(this, result, 20001, new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface   ) {
-                        Toast.makeText(MainActivity.this, "User canceled Dialogue", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                dialog.show();
+            Dialog dialog = googleApiAvailability.getErrorDialog(this, result, 20001, new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialogInterface) {
+                    Toast.makeText(MainActivity.this, "User canceled Dialogue", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog.show();
 
-                return false;
+            return false;
         }
         return false;
     }
 
-    private void checkPermission(){
+    private void checkPermission() {
         Dexter.withContext(this).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener((new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
@@ -154,33 +151,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                Uri uri = Uri.fromParts("package",getPackageName(),"");
+                Uri uri = Uri.fromParts("package", getPackageName(), "");
                 intent.setData(uri);
                 startActivity(intent);
             }
 
             @Override
             public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                    permissionToken.continuePermissionRequest();
+                permissionToken.continuePermissionRequest();
             }
         })).check();
     }
 
 
     //checking google play services ok
-    public boolean isServicesOK(){
+    public boolean isServicesOK() {
         Log.d(TAG, "isServicesOK: checking google services version");
 
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
 
-        if(available == ConnectionResult.SUCCESS){
+        if (available == ConnectionResult.SUCCESS) {
             //everthing is fine and the user can make map requests
             Log.d(TAG, "isServicesOK: Google Play Services is working");
             return true;
 
-        } else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
             //an error occured but we can resolve it
-            Log.d(TAG,"isServicesOK: an error occured but we can fix it");
+            Log.d(TAG, "isServicesOK: an error occured but we can fix it");
             Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this, available, ERROR_DIALOG_REQUEST);
             dialog.show();
         } else {
@@ -188,15 +185,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         }
         return false;
-    };
+    }
+
+    ;
 
 
-    public void startLoginActivity(){
+    public void startLoginActivity() {
         Intent intent = new Intent(this, LoginRegisterActivity.class);
         startActivity(intent);
         this.finish();
-    };
+    }
 
+    ;
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return true;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         switch (id) {
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     startLoginActivity();
                                 } else {
                                     System.out.println("Failed");
@@ -229,12 +229,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-
-    public void fetchQuote(View view){
+    public void fetchQuote(View view) {
         mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()){
+                if (documentSnapshot.exists()) {
                     String quoteText = documentSnapshot.getString(Quote_Key);
                     String authorText = documentSnapshot.getString(Author_Key);
                     mQuoteTextView.setText("\"" + quoteText + "\" -- " + authorText);
@@ -245,10 +244,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-
-    public void saveQuote(View view){
-       EditText quoteView =   findViewById(R.id.et_quote);
-        EditText authorView =  findViewById(R.id.et_author);
+    public void saveQuote(View view) {
+        EditText quoteView = findViewById(R.id.et_quote);
+        EditText authorView = findViewById(R.id.et_author);
         String quoteText = quoteView.getText().toString();
         String authorText = authorView.getText().toString();
 
@@ -259,7 +257,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Map<String, Object> dataToSave = new HashMap<String, Object>();
         dataToSave.put(Quote_Key, quoteText);
         dataToSave.put(Author_Key, authorText);
-        Map<String, Object> dataToAdd  = new HashMap<String, Object>();
+        Map<String, Object> dataToAdd = new HashMap<String, Object>();
         dataToAdd.put("qussss", quoteText);
         dataToAdd.put("asds", authorText);
 
@@ -285,15 +283,35 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         googleMap = googleMap;
         LatLng latLng = new LatLng(34.140980, -84.357679);
+        LatLng walmart = new LatLng(34.149409, -84.249323);
+        MarkerOptions walMarker = new MarkerOptions();
+        walMarker.title("Walmart, Milton");
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.title("My home");
         //LatLng latLng;
-
-
+        walMarker.position(walmart);
         markerOptions.position(latLng);
         googleMap.addMarker(markerOptions);
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 12);
+        googleMap.addMarker(walMarker);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
         googleMap.animateCamera(cameraUpdate);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.getUiSettings().setCompassEnabled(true);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        googleMap.setMyLocationEnabled(true);
+
+
+
 
     }
 
@@ -321,6 +339,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onStop() {
         super.onStop();
         mapView.onStop();
+
+
     }
 
     @Override
